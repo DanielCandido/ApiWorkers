@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\ApiWorkers",
+    "\\ApiWorkers\\ApiWorkers"
   ],
+  "SelectedNode": "\\ApiWorkers\\ApiWorkers.sln",
   "PreviewInSolutionExplorer": false
 }
