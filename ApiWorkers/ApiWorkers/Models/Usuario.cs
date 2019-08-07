@@ -29,12 +29,12 @@ namespace ApiWorkers.Models
         public string Cidade { get; set; }
         public string Senha { get; set; }
 
-        public List<Usuario> ListarUsuarios()
+        public List<Usuario> ListarUsuarios(int? id = null)
         {
             try
             {
                 var usuarioDB = new UsuarioDAO();
-                return usuarioDB.ListarUsuariosDB();
+                return usuarioDB.ListarUsuariosDB(id);
             }
             catch (Exception e)
             {

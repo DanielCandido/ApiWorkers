@@ -32,11 +32,11 @@ namespace MyJob.Controllers
 
         // GET: api/Usuario/5
         [HttpGet]
-        [Route("RecuperarUsuario/{id}")]
+        [Route("RecuperarUsuario/{id:int}")]
         public Usuario RecuperarPorId(int id)
         {
             Usuario usuario = new Usuario();
-            return usuario.ListarUsuarios().Where(x => x.Id == id).FirstOrDefault();
+            return usuario.ListarUsuarios(id).FirstOrDefault();
         }
 
         [HttpGet]
@@ -119,6 +119,7 @@ namespace MyJob.Controllers
         }
 
         // POST: api/Usuario
+        [HttpPost]
         public List<Usuario> Post(Usuario usuario)
         {
             Usuario _usuario = new Usuario();
@@ -149,6 +150,7 @@ namespace MyJob.Controllers
         }
 
         // PUT: api/Usuario/5
+        [HttpPut]
         public Usuario Put(int id, [FromBody]Usuario usuario)
         {
             Usuario _usuario = new Usuario();
@@ -161,6 +163,7 @@ namespace MyJob.Controllers
         }
 
         // DELETE: api/Usuario/5
+        [HttpDelete]
         public void Delete(int id)
         {
             Usuario _usuario = new Usuario();

@@ -23,13 +23,19 @@ namespace ApiWorkers.DAO.UsuarioDAO
             conexao.Open();
         }
 
-        public List<Usuario> ListarUsuariosDB()
+        public List<Usuario> ListarUsuariosDB(int ?id)
         {
 
             var listaUsuarios = new List<Usuario>();
 
             IDbCommand selectQuery = conexao.CreateCommand();
-            selectQuery.CommandText = "Select * from Usuarios";
+            if (id == null)
+            {
+                selectQuery.CommandText = "Select * from Usuarios";
+            } else
+            {
+                selectQuery.CommandText = $"Select * from Usuarios where Id = {id}";
+            }
 
             IDataReader resultado = selectQuery.ExecuteReader();
             while (resultado.Read())
