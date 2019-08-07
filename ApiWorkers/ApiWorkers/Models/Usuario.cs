@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ApiWorkers.DAO.UsuarioDAO;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,24 +16,30 @@ namespace ApiWorkers.Models
         public string Sobrenome { get; set; }
         public string Cpf { get; set; }
         public string Rg { get; set; }
+        public string Sexo { get; set; }
         public string Telefone { get; set; }
         public string Celular { get; set; }
         public string Email { get; set; }
+        public string Cep { get; set; }
         public string Endereco { get; set; }
         public int NumeroCasa { get; set; }
         public string Complemento { get; set; }
+        public string Bairro { get; set; }
+        public string Uf { get; set; }
+        public string Cidade { get; set; }
         public string Senha { get; set; }
 
         public List<Usuario> ListarUsuarios()
         {
-
-            var caminhoDB = HostingEnvironment.MapPath(@"~/App_Data/Base.json");
-
-            var json = File.ReadAllText(caminhoDB);
-
-            var listaUsuarios = JsonConvert.DeserializeObject<List<Usuario>>(json);
-
-            return listaUsuarios;
+            try
+            {
+                var usuarioDB = new UsuarioDAO();
+                return usuarioDB.ListarUsuariosDB();
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Erro ao listar usuarios: Erro => {e.Message}");
+            }
         }
 
         public bool ReescreverArquivo(List<Usuario> listaUsuarios)
@@ -46,36 +53,30 @@ namespace ApiWorkers.Models
 
         }
 
-        public Usuario Inserir(Usuario Usuario)
+        public void Inserir(Usuario Usuario)
         {
-            var listaUsuario = this.ListarUsuarios();
-
-            var maxId = listaUsuario.Max(p => p.Id);
-            Usuario.Id = maxId + 1;
-            listaUsuario.Add(Usuario);
-
-            ReescreverArquivo(listaUsuario);
-
-            return Usuario;
+            try
+            {
+                var usuarioDB = new UsuarioDAO();
+                usuarioDB.InserirUsuarioDB(Usuario);
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Erro ao Inserir usuario: Erro => {e.Message}");
+            }
         }
 
-        public Usuario Atualizar(int Id, Usuario Usuario)
+        public void Atualizar(Usuario Usuario)
         {
-            var listaUsuario = this.ListarUsuarios();
-
-            var itemIndex = listaUsuario.FindIndex(p => p.Id == Usuario.Id);
-            if (itemIndex >= 0)
+            try
             {
-                Usuario.Id = Id;
-                listaUsuario[itemIndex] = Usuario;
+                var usuarioDB = new UsuarioDAO();
+                usuarioDB.AtualizarUsuarioDB(Usuario);
             }
-            else
+            catch (Exception e)
             {
-                return null;
+                throw new Exception($"Erro ao Atualizar usuario: Erro => {e.Message}");
             }
-
-            ReescreverArquivo(listaUsuario);
-            return Usuario;
         }
 
         public bool Deletar(int Id)
