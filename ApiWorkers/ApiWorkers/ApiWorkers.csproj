@@ -96,14 +96,20 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CategoriaController.cs" />
+    <Compile Include="Controllers\OrdemServicoController.cs" />
     <Compile Include="Controllers\SubCategoriaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="DAO\CategoriaDAO.cs" />
+    <Compile Include="DAO\OrdemServicoDAO.cs" />
+    <Compile Include="DAO\PrestadorDAO.cs" />
     <Compile Include="DAO\SubcategoriaDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="DAO\UsuarioDAO.cs" />
     <Compile Include="Models\Categoria.cs" />
+    <Compile Include="Models\OrdemServico.cs" />
+    <Compile Include="Models\Prestador.cs" />
     <Compile Include="Models\Subcategoria.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
