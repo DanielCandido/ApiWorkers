@@ -1,35 +1,13 @@
-﻿using ApiWorkers.DAO.UsuarioDAO;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web;
-using System.Web.Hosting;
+using Workers.Domain;
+using Workers.Repository;
 
 namespace ApiWorkers.Models
 {
     public class Usuario
     {
-        public int Id { get; set; }
-        public string Nome { get; set; }
-        public string Sobrenome { get; set; }
-        public string Cpf { get; set; }
-        public string Rg { get; set; }
-        public string Sexo { get; set; }
-        public string Telefone { get; set; }
-        public string Celular { get; set; }
-        public string Email { get; set; }
-        public string Cep { get; set; }
-        public string Endereco { get; set; }
-        public int NumeroCasa { get; set; }
-        public string Complemento { get; set; }
-        public string Bairro { get; set; }
-        public string Uf { get; set; }
-        public string Cidade { get; set; }
-        public string Senha { get; set; }
-
-        public List<Usuario> ListarUsuarios(int? id = null)
+        public List<UsuarioDTO> ListarUsuarios(int? id = null)
         {
             try
             {
@@ -42,7 +20,7 @@ namespace ApiWorkers.Models
             }
         }
 
-        public bool ReescreverArquivo(List<Usuario> listaUsuarios)
+        /*public bool ReescreverArquivo(List<Usuario> listaUsuarios)
         {
             var caminhoDB = HostingEnvironment.MapPath(@"~/App_Data/Base.json");
 
@@ -51,9 +29,9 @@ namespace ApiWorkers.Models
 
             return true;
 
-        }
+        }*/
 
-        public void Inserir(Usuario Usuario)
+        public void Inserir(UsuarioDTO Usuario)
         {
             try
             {
@@ -66,7 +44,7 @@ namespace ApiWorkers.Models
             }
         }
 
-        public void Atualizar(Usuario Usuario)
+        public void Atualizar(UsuarioDTO Usuario)
         {
             try
             {
@@ -79,21 +57,17 @@ namespace ApiWorkers.Models
             }
         }
 
-        public bool Deletar(int Id)
+        public void Deletar(int Id)
         {
-            var listaUsuarios = this.ListarUsuarios();
-
-            var itemIndex = listaUsuarios.FindIndex(p => p.Id == Id);
-            if (itemIndex >= 0)
+            try
             {
-                listaUsuarios.RemoveAt(itemIndex);
+                var usuarioDB = new UsuarioDAO();
+                usuarioDB.DeletarUsuarioDB(Id);
             }
-            else
+            catch (Exception e)
             {
-                return false;
+                throw new Exception($"Erro ao Deletar usuario: Erro => {e.Message}");
             }
-            ReescreverArquivo(listaUsuarios);
-            return true;
         }
     }
 }

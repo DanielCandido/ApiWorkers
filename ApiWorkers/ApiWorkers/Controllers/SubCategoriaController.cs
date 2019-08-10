@@ -14,7 +14,7 @@ namespace ApiWorkers.Controllers
     public class SubCategoriaController : ApiController
     {
         [HttpGet]
-        [Route("ListarSubcategoria")]
+        [Route("ListarSubcategorias")]
         public IHttpActionResult ListarSubcategoria()
         {
             try

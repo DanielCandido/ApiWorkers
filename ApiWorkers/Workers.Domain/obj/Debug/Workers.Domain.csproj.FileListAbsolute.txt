@@ -1,0 +1,6 @@
+C:\Users\danie\Source\Repos\DanielCandido\ApiWorkers\ApiWorkers\Workers.Domain\bin\Debug\Workers.Domain.dll
+C:\Users\danie\Source\Repos\DanielCandido\ApiWorkers\ApiWorkers\Workers.Domain\bin\Debug\Workers.Domain.pdb
+C:\Users\danie\Source\Repos\DanielCandido\ApiWorkers\ApiWorkers\Workers.Domain\obj\Debug\Workers.Domain.csproj.CoreCompileInputs.cache
+C:\Users\danie\Source\Repos\DanielCandido\ApiWorkers\ApiWorkers\Workers.Domain\obj\Debug\Workers.Domain.dll
+C:\Users\danie\Source\Repos\DanielCandido\ApiWorkers\ApiWorkers\Workers.Domain\obj\Debug\Workers.Domain.pdb
+C:\Users\danie\Source\Repos\DanielCandido\ApiWorkers\ApiWorkers\Workers.Domain\obj\Debug\Workers.Domain.csprojAssemblyReference.cache

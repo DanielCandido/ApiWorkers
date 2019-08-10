@@ -1,0 +1,9 @@
+C:\Users\danie\Source\Repos\DanielCandido\ApiWorkers\ApiWorkers\App_Repository\obj\Debug\Workers_Repository.csprojAssemblyReference.cache
+C:\Users\danie\Source\Repos\DanielCandido\ApiWorkers\ApiWorkers\App_Repository\obj\Debug\Workers_Repository.csproj.CoreCompileInputs.cache
+C:\Users\danie\Source\Repos\DanielCandido\ApiWorkers\ApiWorkers\App_Repository\bin\Debug\App_Repository.dll
+C:\Users\danie\Source\Repos\DanielCandido\ApiWorkers\ApiWorkers\App_Repository\bin\Debug\App_Repository.pdb
+C:\Users\danie\Source\Repos\DanielCandido\ApiWorkers\ApiWorkers\App_Repository\bin\Debug\Workers.Domain.dll
+C:\Users\danie\Source\Repos\DanielCandido\ApiWorkers\ApiWorkers\App_Repository\bin\Debug\Workers.Domain.pdb
+C:\Users\danie\Source\Repos\DanielCandido\ApiWorkers\ApiWorkers\App_Repository\obj\Debug\Workers_Repository.csproj.CopyComplete
+C:\Users\danie\Source\Repos\DanielCandido\ApiWorkers\ApiWorkers\App_Repository\obj\Debug\App_Repository.dll
+C:\Users\danie\Source\Repos\DanielCandido\ApiWorkers\ApiWorkers\App_Repository\obj\Debug\App_Repository.pdb

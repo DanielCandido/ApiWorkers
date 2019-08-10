@@ -1,18 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using ApiWorkers.Models;
+using System;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace ApiWorkers.Controllers
 {
+    [EnableCors("*", "*", "*")]
+    [RoutePrefix("api/Categoria")]
     public class CategoriaController : ApiController
     {
-        // GET: api/Categoria
-        public IEnumerable<string> Get()
+        [HttpGet]
+        [Route("ListarCategorias")]
+        public IHttpActionResult ListarCategorias()
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                Categoria categorias = new Categoria();
+                return Ok(categorias.ListarCategorias());
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
 
         // GET: api/Categoria/5

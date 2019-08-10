@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ApiWorkers.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,18 +10,22 @@ using System.Web.Http.Cors;
 namespace ApiWorkers.Controllers
 {
     [EnableCors("*", "*", "*")]
+    [RoutePrefix("api/Prestador")]
     public class PrestadorController : ApiController
     {
-        // GET: api/Prestador
-        public IEnumerable<string> Get()
+        [HttpGet]
+        [Route("ListarPrestadores")]
+        public IHttpActionResult ListarUsuarios()
         {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET: api/Prestador/5
-        public string Get(int id)
-        {
-            return "value";
+            try
+            {
+                Prestador prestador = new Prestador();
+                return Ok(prestador.ListarPrestadores());
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
 
         // POST: api/Prestador

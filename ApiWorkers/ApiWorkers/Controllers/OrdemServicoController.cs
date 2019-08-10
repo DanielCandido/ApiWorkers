@@ -1,18 +1,32 @@
-﻿using System;
+﻿using ApiWorkers.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace ApiWorkers.Controllers
 {
+    [EnableCors("*", "*", "*")]
+    [RoutePrefix("api/OrdemServico")]
     public class OrdemServicoController : ApiController
     {
-        // GET: api/OrdemServico
-        public IEnumerable<string> Get()
+        [HttpGet]
+        [Route("ListarOrdens")]
+        public IHttpActionResult ListarOdens()
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                OrdemServico ordem = new OrdemServico();
+                return Ok(ordem.ListarOrdens());
+            }
+            catch (Exception ex)
+            {
+
+                return InternalServerError(ex);
+            }
         }
 
         // GET: api/OrdemServico/5

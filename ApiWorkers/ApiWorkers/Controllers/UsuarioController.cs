@@ -1,11 +1,11 @@
-﻿using ApiWorkers.Models;
+﻿using ApiWorkers;
+using ApiWorkers.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using Workers.Domain;
 
 namespace MyJob.Controllers
 {
@@ -16,6 +16,7 @@ namespace MyJob.Controllers
         // GET: api/Usuario
         [HttpGet]
         [Route("ListarUsuarios")]
+        [Authorize(Roles = Funcao.Administrador)]
         public IHttpActionResult ListarUsuarios()
         {
             try
@@ -33,21 +34,42 @@ namespace MyJob.Controllers
         // GET: api/Usuario/5
         [HttpGet]
         [Route("RecuperarUsuario/{id:int}")]
-        public Usuario RecuperarPorId(int id)
+        public IHttpActionResult RecuperarPorId(int id)
         {
-            Usuario usuario = new Usuario();
-            return usuario.ListarUsuarios(id).FirstOrDefault();
+            try
+            {
+                Usuario usuario = new Usuario();
+                return Ok(usuario.ListarUsuarios(id).FirstOrDefault());
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+            
         }
 
         [HttpGet]
         [Route(@"RecuperarUsuarioCpf/{cpf}")]
-        public Usuario RecuperarPorCpf(string cpf)
+        public IHttpActionResult RecuperarPorCpf(string cpf)
         {
-            Usuario usuario = new Usuario();
-            return usuario.ListarUsuarios().Where(x => x.Cpf == cpf).FirstOrDefault();
+            try
+            {
+                Usuario usuario = new Usuario();
+                IEnumerable<UsuarioDTO> usuarios = usuario.ListarUsuarios().Where(x => x.Cpf == cpf);
+
+            //    if (!usuarios.Any())
+            //        return NotFound();
+
+                return Ok(usuarios);
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+           
         }
 
-        [HttpGet]
+        /*[HttpGet]
         [Route("RecuperarUsuarioRegiao/{regiao}")]
         public IHttpActionResult RecuperarPorRegiao(string regiao)
         {
@@ -117,58 +139,78 @@ namespace MyJob.Controllers
                 return InternalServerError(ex);
             }
         }
+        */
 
         // POST: api/Usuario
         [HttpPost]
-        public List<Usuario> Post(Usuario usuario)
-        {
-            Usuario _usuario = new Usuario();
-
-            Verifica(usuario);
-
-            return _usuario.ListarUsuarios();
-
-        }
-
-        [HttpPost]
         [Route("InserirUsuario")]
-        public bool Verifica(Usuario usuario)
+        public IHttpActionResult Post(UsuarioDTO usuario)
         {
-            Usuario _usuario = new Usuario();
-
-            IEnumerable<Usuario> usuarios = _usuario.ListarUsuarios().Where(x => x.Cpf == usuario.Cpf || x.Rg == usuario.Rg || x.Email == usuario.Email);
-
-            if (!usuarios.Any())
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            try
             {
-                _usuario.Inserir(usuario);
-                return true;
+                Usuario _usuario = new Usuario();
+
+                IEnumerable<UsuarioDTO> usuarios = _usuario.ListarUsuarios().Where(x => x.Cpf == usuario.Cpf || x.Rg == usuario.Rg || x.Email == usuario.Email);
+
+                if (!usuarios.Any())
+                {
+                    _usuario.Inserir(usuario);
+                }
+                else
+                {
+                    return InternalServerError();
+                }
+
+                return Ok(_usuario.ListarUsuarios());
             }
-            else
+            catch(Exception ex)
             {
-                return false;  
+                return InternalServerError(ex);
             }
+            
+
         }
 
         // PUT: api/Usuario/5
         [HttpPut]
-        public Usuario Put(int id, [FromBody]Usuario usuario)
+        public IHttpActionResult Put(int id, [FromBody]UsuarioDTO usuario)
         {
-            Usuario _usuario = new Usuario();
+            try
+            {
+                Usuario _usuario = new Usuario();
 
-            usuario.Id = id;
+                usuario.Id = id;
 
-            _usuario.Atualizar(usuario);
+                _usuario.Atualizar(usuario);
 
-            return _usuario.ListarUsuarios().FirstOrDefault(usu => usu.Id == id);
+                return Ok(_usuario.ListarUsuarios(id).FirstOrDefault());
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+            
         }
 
         // DELETE: api/Usuario/5
         [HttpDelete]
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
-            Usuario _usuario = new Usuario();
+            try
+            {
+                Usuario _usuario = new Usuario();
 
-            _usuario.Deletar(id);
+                _usuario.Deletar(id);
+
+                return Ok("Deletado Com Sucesso");
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+           
         }
     }
 }

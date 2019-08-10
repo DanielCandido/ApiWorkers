@@ -1,29 +1,24 @@
-﻿using ApiWorkers.DAO;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using Workers.Domain;
+using Workers.Repository;
 
 namespace ApiWorkers.Models
 {
     public class Subcategoria
     {
-        public int Id { get; set; }
-        public string NomeSubcategoria { get; set; }
-        public Categoria Categoria { get; set; }
-        public int CategoriaId { get; set; }
+        public List<SubcategoriaDTO> ListarSubcategoria(int? id = null)
+        {
+            try
+            {
+                var subcategoriaDB = new SubcategoriaDAO();
+                return subcategoriaDB.ListarSubcategoriaDB(id);
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Erro ao listar usuarios: Erro => {e.Message}");
+            }
+        }
     }
 
-    /**public List<Subcategoria> ListarSubcategoria()
-    {
-        try
-        {
-            var subcategoriaDB = new SubcategoriaDAO();
-            return usuarioDB.ListarUsuariosDB();
-        }
-        catch (Exception e)
-        {
-            throw new Exception($"Erro ao listar usuarios: Erro => {e.Message}");
-        }
-    }*/
 }
